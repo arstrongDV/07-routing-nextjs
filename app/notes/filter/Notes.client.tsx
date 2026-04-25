@@ -13,7 +13,11 @@ import NoteList from '@/components/NoteList/NoteList';
 import Modal from '@/components/Modal/Modal';
 import NoteForm from '@/components/NoteForm/NoteForm';
 
-function Notes() {
+interface NotesProps {
+  category: string | undefined;
+}
+
+function Notes({ category }: NotesProps) {
   const [page, setPage] = useState(1);
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -26,10 +30,11 @@ function Notes() {
   }, 300);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['notes', page, searchQuery],
+    queryKey: ['notes', page, searchQuery, category],
     queryFn: () => fetchNotes({
           page: page,
-          search: searchQuery
+          search: searchQuery,
+          tag: category
     }),
     placeholderData: keepPreviousData
   });
@@ -64,7 +69,6 @@ function Notes() {
       </Modal>
     )}
   </div>
-
   )
 }
 

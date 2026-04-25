@@ -16,13 +16,12 @@ export interface fetchNotesResponse {
 interface FetchNotesProps {
     page?: number;
     search?: string;
-    category?: string;
+    tag?: string;
 }
 export const fetchNotes = async (params?: FetchNotesProps): Promise<fetchNotesResponse> => {
-    const res = await api.get<fetchNotesResponse>('/notes', {params: params});
+    const res = await api.get<fetchNotesResponse>(`/notes`,  {params: params});
     return res.data;
 };
-
 
 export const fetchNote = async(id: string): Promise<Note> => {
     console.log("Fetching URL:", `/notes/${id}`);
