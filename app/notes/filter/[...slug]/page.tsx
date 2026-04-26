@@ -14,8 +14,10 @@ const NotesByCategory = async ({ params }: NotesByCategory) => {
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery({
-        queryKey: ["notes"],
-        queryFn: () => fetchNotes(),
+        queryKey: ["notes", category],
+        queryFn: () => fetchNotes({
+            tag: category
+        }),
     });
 
     return <HydrationBoundary state={dehydrate(queryClient)}>

@@ -9,7 +9,7 @@ const api = axios.create({
     }
 })
 
-export interface fetchNotesResponse {
+export interface FetchNotesResponse {
     notes: Note[];
     totalPages: number;
 }
@@ -18,13 +18,12 @@ interface FetchNotesProps {
     search?: string;
     tag?: string;
 }
-export const fetchNotes = async (params?: FetchNotesProps): Promise<fetchNotesResponse> => {
-    const res = await api.get<fetchNotesResponse>(`/notes`,  {params: params});
+export const fetchNotes = async (params?: FetchNotesProps): Promise<FetchNotesResponse> => {
+    const res = await api.get<FetchNotesResponse>(`/notes`,  {params: params});
     return res.data;
 };
 
 export const fetchNote = async(id: string): Promise<Note> => {
-    console.log("Fetching URL:", `/notes/${id}`);
     const res = await api.get<Note>(`/notes/${id}`);
     console.log(res);
     return res.data;
@@ -33,7 +32,7 @@ export const fetchNote = async(id: string): Promise<Note> => {
 interface NotesData {
     title: string;
     content: string;
-    tag: string;
+    tag: 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
 }
 export const createNote = async (data: NotesData): Promise<Note> => {
     const res = await api.post<Note>('/notes', data);
