@@ -1,7 +1,7 @@
+'use client'
 import React from 'react'
 import css from './NotePreview.module.css'
 import { useParams, useRouter } from 'next/navigation'
-import { Note } from '@/types/note'
 import { useQuery } from '@tanstack/react-query'
 import { fetchNote } from '@/lib/api'
 import Modal from '@/components/Modal/Modal'
@@ -19,6 +19,7 @@ const NotePreview = () => {
   if (isLoading) return <p>Loading, please wait...</p>;
 
   if (error || !note) return <p>Something went wrong.</p>;
+
   return (
     <Modal onClose={() => router.back()}>
         <div className={css.container}>
